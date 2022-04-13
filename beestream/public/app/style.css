@@ -1,0 +1,329 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+/*You'll find any CSS Styling here*/
+body{
+  font-family: Arial;
+  margin: 0;
+}
+h1{
+  text-align:  center;
+  color: black;
+  font-size: 40px;
+}
+h2{
+  text-align:  center;
+  color: black;
+  font-size: 30px;
+}
+p{
+  text-align: center;
+  font-size:  20px;
+  line-height: 45px;
+}
+#body{
+  margin: auto;
+  padding-left: 8px;
+  padding-right: 8px;
+  max-width: 1000px;
+}
+#help-heading{
+  box-shadow: none;
+  border: none;
+  border-radius: 5px;
+  background-color: white;
+  font-size: 20px;
+  margin-top: 10px;
+  color: #30a5ff;
+}
+#help-heading:hover{
+  box-shadow: none;
+  border: none;
+  border-radius: 5px;
+  background-color: white;
+  font-size: 20px;
+  margin-top: 10px;
+  color: black;
+  transition: .2s;
+}
+#help-icon{
+  vertical-align: text-bottom;
+}
+#help-content-heading{
+  font-size: 18px;
+  margin: 8px
+}
+#help-content{
+  text-align: center;
+  font-size:  18px;
+  line-height: 20px;
+  margin: 5px;
+}
+#comment-heading{
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+#comment-content{
+  text-align: center;
+  font-size:  18px;
+  line-height: 20px;
+  margin: 5px;
+}
+#analysis-heading{
+  text-align: right;
+  margin-bottom: 10px;
+  font-size: 24px;
+  margin: auto;
+}
+#analysis-content{
+  text-align: right;
+  font-size:  20px;
+  line-height: 22px;
+  margin: 5px;
+}
+#example-title{
+  margin: 5px;
+}
+.header{
+  margin-bottom: 35px;
+  padding: 20px;
+  min-height: 50px;
+  width: auto;
+  background-color: black;
+  text-align: center;
+}
+.header-link{
+  padding-right: 45px;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 40px;
+  color: white;
+  vertical-align: middle;
+  text-decoration: none;
+  transition:  .5s;
+}
+.header-link:hover{
+  color: lightgrey;
+}
+.construction{
+  display: none;
+}
+.block-text{
+  font-size: 18px;
+  line-height: 30px;
+}
+.streaming-block{
+  display:  inline-block;
+  max-width: 350px;
+  background-color: #EEEEEE;
+  color: black;
+  border-radius: 15px;
+  margin: 20px;
+  padding: 40px;
+  height: 350px;
+  vertical-align: middle;
+}
+.archive-block{
+  display:  inline-block;
+  max-width: 350px;
+  background-color: #EEEEEE;
+  color: black;
+  border-radius: 15px;
+  margin: 20px;
+  padding: 40px;
+  height: 350px;
+  vertical-align: middle;
+}
+.main-button{
+  width: 200px;
+  height: 50px;
+  color: white;
+  background-color: black;
+  box-shadow: none;
+  border: none;
+  border-radius: 5px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  font-size: 18px;
+  transition: .2s;
+}
+.main-button:hover{
+  color: black;
+  background-color: white;
+  cursor: pointer;
+}
+.footer{
+  font-size: 12px;
+  margin-top: 20px;
+}
+.dropdown{
+  display:inline-block;
+  margin: auto;
+  justify-content: center;
+}
+.dropdown-div{
+  margin: auto;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.video-div{
+  display:inline-block;
+  /* width: 55%; */
+  text-align: right;
+  vertical-align: top;
+  margin-right: 10px;
+  min-height: 480px;
+  min-width: 640px;
+}
+.video-title-div{
+  margin-top: 50;
+}
+.comment-div{
+  display:inline-block;
+  max-width: 420px;
+  margin-left: 10px;
+}
+.comment-form-div{
+  margin: auto;
+  margin-bottom: 5px;
+  text-align: center;
+}
+.comment-list-div{
+  margin: auto;
+  margin-top: 5px;
+  text-align: center;
+}
+.comment-form-item{
+  padding-bottom: 15px;
+}
+.example-comment{
+
+}
+.video-and-comments{
+  text-align: center;
+}
+.analysis-div{
+  display: inline-block;
+  margin: 10px;
+  vertical-align: top;
+  max-width: 127px;
+}
+.analysis-button{
+  float: right;
+  box-shadow: none;
+  border: none;
+  border-radius: 5px;
+  background-color: white;
+  font-size: 20px;
+  color: #30a5ff;
+}
+.analysis-button:hover{
+  float: right;
+  box-shadow: none;
+  border: none;
+  border-radius: 5px;
+  background-color: white;
+  font-size: 20px;
+  color: black;
+  transition: .2s;
+}
+.analysis-about{
+  text-align: right;
+  font-size: 15px;
+  line-height: 17px;
+}
+.tag-on {
+  font-size: 16px;
+  text-decoration: none;
+  background-color: #4CD964;
+  color: #FFFFFF;
+  padding: 5px 15px 5px 15px;
+  border-radius: 30px;
+  box-shadow: 0px 2px #F1F1F1;
+  cursor: pointer;
+  margin-right: 20px;
+  margin-top: 10px;
+  transition: .5s ease;
+}
+.tag-on:hover {
+  background-color: #29A23E;
+}
+.tag-off {
+  font-size: 16px;
+  text-decoration: none;
+  background-color: #8E8E93;
+  color: #FFFFFF;
+  padding: 5px 15px 5px 15px;
+  border-radius: 30px;
+  box-shadow: 0px 2px #F1F1F1;
+  cursor: pointer;
+  margin-right: 20px;
+  margin-top: 10px;
+  transition: .5s ease;
+}
+.tag-off:hover {
+  background-color: #69696E;
+}
+.tag-number {
+  font-weight: 800;
+  margin-right: 5px;
+}
+.tag-div {
+  display: inline-block;
+  margin-top: 15px;
+}
+.tag-block-div {
+  max-width: 640px;
+  text-align: center;
+}
+.share-button:hover {
+  background-color: #e5e5e5;
+  border-color: black;
+  border-width: 2px;
+  transition: .2s;
+}
+.share-button-div {
+  max-width: 640px;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.visual-block {
+  display: block;
+}
+.dashboard-form-parent {
+  text-align: center
+}
+.dashboard-form {
+  display: inline-block;
+}
+.dashboard-checkbox {
+  margin: 10px;
+}
+.dashboard-datepicker {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+.dashboard-form-title {
+  margin-bottom: 15px;
+  margin-top: 5px;
+}
+.dashboard-title {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+.dashboard-chart-div-invisible {
+  display: none;
+}
+.dashboard-chart-div {
+  margin: 20px;
+}
+.dashboard-chart {
+  height: auto;
+  width: auto;
+  min-height: 480px;
+}
+.dashboard-loading {
+  margin: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}

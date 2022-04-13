@@ -1,0 +1,118 @@
+<div>
+  <h1>Archive</h1>
+  <p *ngIf="error">Uh oh, we ran into an issue!<br>{{error}}</p>
+  <form #hiveForm="ngForm">
+    <div class="dropdown-div">
+      <select class="dropdown"
+              name="hiveSelect"
+              [(ngModel)]="hiveSelect"
+              (ngModelChange)="respondHive()">
+        <option [ngValue]="null">Choose a Hive</option>
+        <option *ngFor="let hive of hives"
+                [ngValue]="hive">{{hive}}</option>
+      </select>
+      <select class="dropdown"
+              [disabled]="!hiveSelect"
+              name="dateSelect"
+              [(ngModel)]="dateSelect"
+              (ngModelChange)="respondDate()">
+        <option [ngValue]="null">Choose a Date</option>
+        <option *ngFor="let date of dates" [ngValue]="date">{{formatDate(date)}}</option>
+      </select>
+      <select class="dropdown"
+              [disabled]="!dateSelect"
+              name="timeSelect"
+              [(ngModel)]="timeSelect">
+        <option [ngValue]="null">Choose a Time</option>
+        <option *ngFor="let time of times" [ngValue]="time">{{formatTime(time)}}</option>
+      </select>
+    </div>
+    <button class="main-button"
+            (click)="onSubmit(hiveSelect, dateSelect, timeSelect)">View</button>
+  </form>
+</div>
+<div class="video-title-div"
+      *ngIf="showTitle()">
+  <h2>Video from {{hive}} on {{date}} at {{time}}.</h2>
+</div>
+<div *ngIf="videoLoading && !error">
+  <p>Video Loading</p>
+</div>
+<div class="video-and-comments"
+      *ngIf="showVideo()">
+  <analysis [video]="videoUrl">
+  </analysis>
+  <div class="video-div">
+    <div>
+      <video id="video" [src]="videoUrl" controls autoplay>
+        Your browser doesn't support HTML5 video.
+      </video>
+      <tags [video]="videoUrl"></tags>
+      <div class="share-button-div">
+        <button mat-icon-button
+                class="share-button"
+                shareButton="facebook"
+                #fbBtn
+                [style.color]="share.prop.facebook.color"
+                [url]="link">
+          <fa-icon [icon]="share.prop.facebook.icon" size="lg"></fa-icon>
+        </button>
+        <button mat-icon-button
+                class="share-button"
+                shareButton="twitter"
+                #twtBtn
+                [style.color]="share.prop.twitter.color"
+                [url]="link">
+          <fa-icon [icon]="share.prop.twitter.icon" size="lg"></fa-icon>
+        </button>
+        <button mat-icon-button
+                class="share-button"
+                shareButton="linkedin"
+                #inBtn
+                [style.color]="share.prop.linkedin.color"
+                [url]="link">
+          <fa-icon [icon]="share.prop.linkedin.icon" size="lg"></fa-icon>
+        </button>
+        <button mat-icon-button
+                class="share-button"
+                shareButton="pinterest"
+                #cpBtn
+                [style.color]="share.prop.pinterest.color"
+                [url]="link">
+          <fa-icon [icon]="share.prop.pinterest.icon" size="lg"></fa-icon>
+        </button>
+        <button mat-icon-button
+                class="share-button"
+                shareButton="tumblr"
+                #cpBtn
+                [style.color]="share.prop.tumblr.color"
+                [url]="link">
+          <fa-icon [icon]="share.prop.tumblr.icon" size="lg"></fa-icon>
+        </button>
+        <button mat-icon-button
+                class="share-button"
+                shareButton="reddit"
+                #cpBtn
+                [style.color]="share.prop.reddit.color"
+                [url]="link">
+          <fa-icon [icon]="share.prop.reddit.icon" size="lg"></fa-icon>
+        </button>
+        <button mat-icon-button
+                class="share-button"
+                shareButton="copy"
+                #cpBtn
+                [style.color]="share.prop.linkedin.color"
+                [url]="link">
+          <fa-icon [icon]="share.prop.copy.icon" size="lg"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+  <comments [video]="videoUrl"></comments>
+</div>
+<video *ngIf="videoUrl && !error"
+       #VideoStream
+       [src]="videoUrl"
+       (loadedmetadata)="checkDuration(VideoStream, hive, date, time)"
+       hidden>
+</video>
