@@ -172,8 +172,11 @@ export class StreamComponent {
   */
   private getVideoInfo(videoMetaData: string) {
     var newVideo = videoMetaData.split('/')[2]
-    var hive, hive2, date, date2, time;
-    [hive, date, hive2, date2, time] = newVideo.split('@');
+    var hive, date, time;
+    [hive, date, time] = newVideo.split('@');
+    console.log(hive);
+    console.log(date);
+    console.log(time);
     time = time.replace(/-/g, ':');
     var displayTime = +time.substr(0, 2) > 12 ?
       `${+time.substr(0, 2) - 12}${time.substr(2, 7)}PM` :

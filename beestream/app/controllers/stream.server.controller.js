@@ -121,7 +121,6 @@ module.exports = function(io, socket) {
   */
   socket.on('getStreamVideo', (message) => {
     if (message.hive != null) {
-
       //get today's date we're at time 00:00:00
       var date = new Date();
       date.setHours(0, 0, 0, 0);
@@ -143,12 +142,15 @@ module.exports = function(io, socket) {
           return;
         }
         else {
+          //console.log(`Hive name: ${message.hive}`);
           let videos = hives.map(hive => hive.FilePath);
           videos.sort().reverse();
           let mostRecent = videos[0];
           mostRecent = mostRecent.split('/');
           mostRecent = mostRecent[mostRecent.length - 1];
           mostRecent = mostRecent.replace('.h264', '');
+          mostRecent = mostRecent.split('@')[2];
+          //console.log(mostRecent);
 
           //let the client know that a video is loading
           socket.emit('streamRequestRecieved', {
@@ -157,8 +159,9 @@ module.exports = function(io, socket) {
 
           var today = getDate();
           var url = `/video/${message.hive}@${today}@${mostRecent}`;
-          var requestPath = `${config.videoPath}/${message.hive}/${today}/video/${mostRecent}.h264`;
-
+          console.log(url);
+          var requestPath = `${config.videoPath}/${message.hive}/${today}/video/${message.hive}@${today}@${mostRecent}.h264`;
+          console.log(requestPath);
           //If it's already converted, we don't need to convert it.
           if(fs.existsSync(`./video/${message.hive}@${today}@${mostRecent}`)) {
             socket.emit('streamReady', {
@@ -184,7 +187,7 @@ module.exports = function(io, socket) {
                     socket.emit('novideo', 'Something went wrong when serving the video.  Wait for a second or refresh the page!');
                   }
                   else {
-		    console.log(`Serving ${requestPath}.`);
+		            console.log(`Serving ${requestPath} at ${url}.`);
                     socket.emit('streamReady', {
                       url: url
                     });

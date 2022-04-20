@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="c1d2bd25-3848-4476-9ca4-e09f0b607491" name="appmais">
+        <fileTransfer accessType="SFTP" host="appmais.cs.appstate.edu" port="22" sshConfigId="b6558aec-87af-4f6a-b714-b7af76c8cdd7" sshConfig="bee@appmais.cs.appstate.edu:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

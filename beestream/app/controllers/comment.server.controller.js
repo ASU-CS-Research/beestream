@@ -56,6 +56,12 @@ module.exports = function(io, socket) {
       'UTCDate': date,
       'FilePath': filepath
     });
+    console.log(`New comment created!:\n` +
+        `Username: ${commentData.username}\n` +
+        `Comment: ${commentData.comment}\n` +
+        `Hive: ${commentData.hive}\n` +
+        `TimeStamp: ${date}\n` +
+        `FilePath: ${filepath}`);
     newComment.save((err) => {
       if (err) {
         console.log(`Insertion error: ${err}`);

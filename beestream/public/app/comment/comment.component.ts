@@ -79,8 +79,11 @@ export class CommentComponent implements OnChanges, OnDestroy{
   *                           variable changes.
   */
   public ngOnChanges(changes: {[propKey: string]: SimpleChange}) {
+    //console.log("ngOnChanges is being run here.");
+    //throw new Error('Getting an error in ngOnChanges');
     if (changes['video'].currentValue != null) {
       var newVideo = changes['video'].currentValue;
+      console.log(newVideo);
       newVideo = newVideo.split('/')[2];
       [this.hive, this.date, this.time] = newVideo.split('@');
       this.time = this.time.replace(/-/g, ':');
@@ -107,9 +110,11 @@ export class CommentComponent implements OnChanges, OnDestroy{
   *   time: string - the current video's time
   */
   private submitComment(form: NgForm, hive: string, date: string, time: string) {
+    //console.log(`Submit comment being run with hive ${hive}, date ${date}, and time ${time}.`);
     if (form.valid) {
       var usernametemp = form.value.username;
       var videoDate = new Date(`${date.substr(6, 4)}-${date.substr(0, 2)}-${date.substr(3, 2)}T${time}`);
+      console.log(`The date given for the video: ${videoDate}`)
       this._ioService.emit('newComment', {
         username: form.value.username,
         comment: form.value.comment,

@@ -163,7 +163,7 @@ module.exports = function(io, socket) {
     if (message.video != null) {
       fs.unlink(`\.${message.video}.mp4`, (err) => {
       	if (err) {
-      	  console.log(`Unable to delete file ${message.video}.mp4 in archive closeSession.`);
+      	  console.log(`Unable to delete file ${message.video}.mp4 in archive closeSession. Error: ${err}`);
       	}
       });
     };
@@ -212,6 +212,7 @@ module.exports = function(io, socket) {
               socket.emit('novideo', 'Something went wrong when serving the video.  Wait for a second or refresh the page!');
             }
             else {
+              console.log(`Serving ${requestPath} at /video/${message.hive}@${message.date}@${message.time}.`)
               socket.emit('videoReady', {
                 url: `/video/${message.hive}@${message.date}@${message.time}`
               });
@@ -231,7 +232,7 @@ module.exports = function(io, socket) {
       if (message.previous != null) {
         fs.unlink(`\.${message.previous}.mp4`, (err) => {
          if (err) {
-            console.log(`Unable to delete file ${message.previous}.mp4 in archive getVideo.`);
+            console.log(`Unable to delete file ${message.previous}.mp4 in archive getVideo. Error: ${err}`);
   	     }
 	     });
       }
