@@ -48,7 +48,7 @@ module.exports = function(io, socket) {
     var second = (date.getSeconds() < 10) ? `0${date.getSeconds()}` : `${date.getSeconds()}`;
     var filepath = `${config.videoPath}/${commentData.hive}/` +
                    `${date.getFullYear()}-${month}-${day}` +
-                   `/video/${hour}-${minute}-${second}.h264`;
+                   `/video/${commentData.hive}@${date.getFullYear()}-${month}-${day}@${hour}-${minute}-${second}.h264`;
     var newComment = new Comment({
       'Username': commentData.username,
       'Comment': commentData.comment,

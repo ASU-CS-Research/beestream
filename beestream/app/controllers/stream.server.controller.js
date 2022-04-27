@@ -201,7 +201,7 @@ module.exports = function(io, socket) {
           if ((message.previous != null) && (message.previous != url)) {
             fs.unlink(`\.${message.previous}.mp4`, (err) => {
               if (err) {
-                 console.log(`Unable to delete file .${message.previous}.mp4 in streaming getStreamVideo.`);
+                 console.log(`Unable to delete file .${message.previous}.mp4 in streaming getStreamVideo. Error: ${err}`);
              }
             });
           }

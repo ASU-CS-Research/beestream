@@ -46,7 +46,7 @@ module.exports = function(io, socket) {
     var second = (date.getSeconds() < 10) ? `0${date.getSeconds()}` : `${date.getSeconds()}`;
     var filepath = `${config.videoPath}/${hive}/` +
                    `${date.getFullYear()}-${month}-${day}` +
-                   `/video/${hour}-${minute}-${second}.h264`;
+                   `/video/${hive}@${date.getFullYear()}-${month}-${day}@${hour}-${minute}-${second}.h264`;
     AvailableTag.find({}, {_id: 0}, (err, tags) => {
       var validTags = [];
       for (var singleTag of tags) {
