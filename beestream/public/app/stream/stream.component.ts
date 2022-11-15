@@ -56,10 +56,13 @@ export class StreamComponent {
       this.videoLoading = true;
     });
     this._videoService.on('streamReady', (data) => {
+      console.log(`${this.videoUrl} ${data.url}`)
       if (this.videoUrl == data.url) {
         this.videoLoading = false;
       }
       this.checkUrl = data.url;
+      this.videoUrl = this.checkUrl
+      console.log(`${this.checkUrl}`)
       this.error = null;
     });
     this._videoService.on('novideo', (data) => {
@@ -80,6 +83,7 @@ export class StreamComponent {
   */
   private checkDuration(video: HTMLVideoElement) {
     var hive = this.getVideoInfo(this.checkUrl)[0];
+    console.log(`duration: ${video.duration}`)
     if (video.duration < 50) {
       //Emit closeSession to tell the server to delete our session's video
       this._videoService.emit('closeSession', {video: this.checkUrl});
@@ -89,6 +93,7 @@ export class StreamComponent {
     else {
       this.videoLoading = false;
       this.correctLength = true;
+      console.log(`Line 93, videoUrl = ${this.checkUrl}`)
       this.videoUrl = this.checkUrl;
       [this.hive, this.date, this.time] = this.getVideoInfo(this.videoUrl);
     }
@@ -133,6 +138,7 @@ export class StreamComponent {
   * angular standards.
   */
   private showTitle() {
+    console.log(`${this.videoUrl} is for the Video URLs ${this.error} for error ${this.hive} for hives ${this.date} and time is ${this.time}`)
     return this.videoUrl && !this.error &&
             this.hive && this.date && this.time;
   }
@@ -143,6 +149,7 @@ export class StreamComponent {
   * angular standards.
   */
   private showVideo() {
+    console.log(`${!this.error} for errors and ${this.videoUrl} for the video`)
     return this.videoUrl && !this.error;
   }
 

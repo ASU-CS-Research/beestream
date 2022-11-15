@@ -172,7 +172,7 @@ module.exports = function(io, socket) {
           //If it hasn't been converted, convert and serve.
           else {
             const convert = spawn(`${ffmpegPath}`, ['-framerate', '30', '-i', `${requestPath}`,
-                                             '-c', 'copy',
+                                             '-c', 'copy', '-threads', '3', '-cpu-used', '5',
                                              `./videotmp/${message.hive}@${today}@${mostRecent}.mp4`]);
             convert.on('close', (code) => {
               if (code != 0) {
@@ -189,7 +189,7 @@ module.exports = function(io, socket) {
                   else {
 		            console.log(`Serving ${requestPath} at ${url}.`);
                     socket.emit('streamReady', {
-                      url: url
+                      url: `/video/${message.hive}@${today}@${mostRecent}`
                     });
                   }
                 });

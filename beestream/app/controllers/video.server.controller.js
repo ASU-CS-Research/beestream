@@ -8,6 +8,7 @@ exports.serve = function(req, res) {
     fs.stat(`./video/${req.video}.mp4`, (err) => {
       if (err == null) {
         var readStream = fs.createReadStream(`./video/${req.video}.mp4`);
+        res.setHeader("accept-ranges", "bytes");
         res.writeHead(200, {
           'Content-Type': 'video/mp4'
         });

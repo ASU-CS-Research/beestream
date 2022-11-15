@@ -41,7 +41,7 @@
   <comments [video]="videoUrl">
   </comments>
 </div>
-<video *ngIf="checkUrl && !error"
+<video *ngIf="checkUrl"
        #VideoStream
        [src]="checkUrl"
        (error)="reattempt(hive)"

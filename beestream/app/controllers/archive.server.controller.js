@@ -181,14 +181,15 @@ module.exports = function(io, socket) {
   */
   socket.on('getVideo', (message) => {
     //Build the path of the requested video
-    var requestPath = `${config.videoPath}/${message.hive}/${message.date}/video/${message.hive}@${message.date}@${message.time}.h264`;
+    var requestPath =
+        `${config.videoPath}/${message.hive}/${message.date}/video/${message.hive}@${message.date}@${message.time}.h264`;
     console.log(`Serving ${requestPath}`);
     //If the user has selected a hive, date, and time and the video exists, serve it.
     if ((message.hive != null) && (message.date != null) &&
         (message.time != null) && fs.existsSync(requestPath)) {
       //Tell the client their request was recieved and is processing.
       socket.emit('videoRequestRecieved', {
-        text: `Peparing to serve ${message.time}`
+        text: `Preparing to serve ${message.time}`
       });
       //If the file is already there, you don't have to convert it.
       if (fs.existsSync(`./video/${message.hive}@${message.date}@${message.time}.mp4`)) {
@@ -200,6 +201,7 @@ module.exports = function(io, socket) {
       else {
 
         const convert = spawn(`${ffmpegPath}`, ['-framerate', '30', '-i', `${requestPath}`, '-c', 'copy',
+                              '-threads', '3', '-cpu-used', '5',
                               `./videotmp/${message.hive}@${message.date}@${message.time}.mp4`]);
         convert.on('close', (code) => {
           if (code != 0) {
