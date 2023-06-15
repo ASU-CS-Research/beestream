@@ -95,7 +95,16 @@ module.exports = function(io, socket) {
       else {
         //let hiveList = [...new Set(hives.map(hive => hive.HiveName))];
 	hives = hives.filter(function(value){
-                return !(value === "All_Hives" || value === "No_Hives");
+                console.log(`${value}: ${!(value === "All_Hives" || value === "No_Hives" || value === "AppMAIS10L"
+                    || value === "AppMAIS10R" || value === "AppMAIS12L" || value === "AppMAIS2R"
+                    || value === "AppMAIS4L" || value === "AppMAIS4R" || value === "AppMAIS5L"
+                    || value === "AppMAIS8L" || value === "AppMAIS9L" || value === "AppMAIS6R"
+                    || value === "AppMAIS6RB" || value === "AppMAIS16L")}`);
+                return !(value === "All_Hives" || value === "No_Hives" || value === "AppMAIS10L"
+                    || value === "AppMAIS10R" || value === "AppMAIS12L" || value === "AppMAIS2R"
+                    || value === "AppMAIS4L" || value === "AppMAIS4R" || value === "AppMAIS5L"
+                    || value === "AppMAIS8L" || value === "AppMAIS9L" || value === "AppMAIS6R"
+                    || value === "AppMAIS6RB" || value === "AppMAIS16L");
         });
         hiveList = hives;
 	hiveList.sort();
