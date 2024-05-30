@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="appmais" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" serverName="bee@appmais (beestream)" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
       <paths name="appmais">
         <serverdata>
           <mappings>
             <mapping deploy="/var/www/https/appmais.cs.appstate.edu/beestream_files/beestream" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="bee@appmais (beestream)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/beestream" local="$PROJECT_DIR$/beestream" web="/" />
           </mappings>
         </serverdata>
       </paths>

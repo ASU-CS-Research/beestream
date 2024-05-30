@@ -291,7 +291,7 @@ export class ArchiveComponent implements OnDestroy{
     var seconds = time.substr(6, 2);
     var hours = +time.substr(0, 2) > 12 ? String(+time.substr(0, 2) - 12) : time.substr(0, 2)
     var fulltime = "";
-    if (+time.substr(0, 2) > 12) {
+    if (+time.substr(0, 2) >= 12) {
         fulltime = `${hours}:${minutes}:${seconds} PM`;
     }
     else {

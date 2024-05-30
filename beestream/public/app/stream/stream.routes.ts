@@ -7,6 +7,6 @@ import { StreamComponent } from './stream.component';
 * the changes here!
 */
 export const StreamRoutes: Routes = [{
-  path: 'stream',
+  path: 'streams',
   component: StreamComponent
 }];

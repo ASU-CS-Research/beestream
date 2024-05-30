@@ -186,8 +186,10 @@ export class StreamComponent {
     //console.log(time);
     time = time.replace(/-/g, ':');
     var displayTime = +time.substr(0, 2) > 12 ?
-      `${+time.substr(0, 2) - 12}${time.substr(2, 7)}PM` :
-      `${time}AM`;
+      `${+time.substr(0, 2) - 12}${time.substr(2, 7)}` :
+      `${time}`;
+    displayTime = +time.substr(0, 2) >= 12 ?
+        `${displayTime} PM` : `${displayTime} AM`
     date = `${date.substr(5, 2)}/${date.substr(8, 2)}/${date.substr(0, 4)}`;
     return [hive, date, displayTime];
   }
