@@ -3,7 +3,7 @@ module.exports = {
   //our database address
   db : 'mongodb://mongo-mais.cs.appstate.edu:27017/beeDB',
   //Path to the directory containing hive folders
-  videoPath: '/usr/local/bee/appmais',
+  videoPath: '/usr/local/bee/appmais/appmais',
   //Path to the ffmpeg installation
   // ffmpegPath: '/usr/local/apache2/htdocs/cs/bee/ffmpeg-3.4.2/',
   ffmpegPath: '/usr/bin/ffmpeg',
