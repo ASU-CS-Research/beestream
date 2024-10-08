@@ -187,7 +187,7 @@ module.exports = function(io, socket) {
 
           //If it hasn't been converted, convert and serve.
           else {
-            const convert = spawn(`${ffmpegPath}`, ['-framerate', '30', '-i', `${requestPath}`,
+            const convert = spawn(`${ffmpegPath}`, ['-r', '30', '-i', `${requestPath}`,
                                              '-c', 'copy', '-threads', '3', '-cpu-used', '5',
                                              `./videotmp/${message.hive}@${today}@${mostRecent}.mp4`]);
             convert.on('close', (code) => {
