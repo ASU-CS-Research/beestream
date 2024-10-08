@@ -49,3 +49,7 @@ beetlog.txt
 **log.txt
 **mongolog
 **public/build/
+
+# IDE ignores #
+###############
+.idea/

@@ -66,7 +66,7 @@ export class StreamComponent {
       this.error = null;
     });
     this._videoService.on('novideo', (data) => {
-      console.log(data.message);
+      console.log(`"novideo" message received: ${data.message}`);
       this.error = data.message;
     });
     this._videoService.emit('getStreamHive', {});
@@ -138,18 +138,19 @@ export class StreamComponent {
   * angular standards.
   */
   private showTitle() {
-    console.log(`${this.videoUrl} is for the Video URLs ${this.error} for error ${this.hive} for hives ${this.date} and time is ${this.time}`)
+    // console.log(`${this.videoUrl} is for the Video URLs ${this.error} for error ${this.hive} for hives ${this.date} and time is ${this.time}`)
     return this.videoUrl && !this.error &&
             this.hive && this.date && this.time;
   }
 
   /*showVideo
-  * this fucntion takes the place of the condition for the video div.
+  * this function takes the place of the condition for the video div.
   * This has been implemented to simplify our angular template and comply with
   * angular standards.
   */
   private showVideo() {
     console.log(`${!this.error} for errors and ${this.videoUrl} for the video`)
+    console.log(`Error: ${this.error}`)
     return this.videoUrl && !this.error;
   }
 
@@ -186,8 +187,10 @@ export class StreamComponent {
     //console.log(time);
     time = time.replace(/-/g, ':');
     var displayTime = +time.substr(0, 2) > 12 ?
-      `${+time.substr(0, 2) - 12}${time.substr(2, 7)}PM` :
-      `${time}AM`;
+      `${+time.substr(0, 2) - 12}${time.substr(2, 7)}` :
+      `${time}`;
+    displayTime = +time.substr(0, 2) >= 12 ?
+        `${displayTime} PM` : `${displayTime} AM`
     date = `${date.substr(5, 2)}/${date.substr(8, 2)}/${date.substr(0, 4)}`;
     return [hive, date, displayTime];
   }
