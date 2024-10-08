@@ -144,12 +144,13 @@ export class StreamComponent {
   }
 
   /*showVideo
-  * this fucntion takes the place of the condition for the video div.
+  * this function takes the place of the condition for the video div.
   * This has been implemented to simplify our angular template and comply with
   * angular standards.
   */
   private showVideo() {
     console.log(`${!this.error} for errors and ${this.videoUrl} for the video`)
+    console.log(`Error: ${this.error}`)
     return this.videoUrl && !this.error;
   }
 

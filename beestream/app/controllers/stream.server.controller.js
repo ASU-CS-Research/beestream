@@ -177,7 +177,7 @@ module.exports = function(io, socket) {
           } else if (fs.existsSync(mp4Path)) {
               requestPath = mp4Path;
           }
-          // console.log(requestPath);
+          console.log(requestPath);
           //If it's already converted, we don't need to convert it.
           if(fs.existsSync(`./video/${message.hive}@${today}@${mostRecent}`)) {
             socket.emit('streamReady', {
@@ -192,7 +192,7 @@ module.exports = function(io, socket) {
                                              `./videotmp/${message.hive}@${today}@${mostRecent}.mp4`]);
             convert.on('close', (code) => {
               if (code != 0) {
-                console.log(`Video conversion error with code ${code}`);
+                console.log(`Video conversion error with code ${code} for path ${requestPath}`);
                 socket.emit('novideo', 'Something went wrong when serving the video.  Wait for a second or refresh the page!');
               }
               else {
