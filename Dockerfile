@@ -5,12 +5,11 @@
 FROM node:20.9.0-alpine
 WORKDIR /var/www/https/beemon.cs.appstate.edu/beestream
 RUN apk update && apk upgrade --no-cache \
-	&& apk add --no-cache git \
+	&& apk add --no-cache git
 RUN apk add --no-cache ffmpeg
 COPY beestream/app ./app/
 COPY beestream/config ./config/
 COPY beestream/package.json .
-COPY package-lock.json .
 COPY beestream/postinstall.sh .
 COPY beestream/public ./public/
 COPY beestream/run_beestream.sh .
