@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="SshConfigs">
-    <configs>
-      <sshConfig authType="PASSWORD" host="appmais.cs.appstate.edu" id="b6558aec-87af-4f6a-b714-b7af76c8cdd7" port="22" nameFormat="DESCRIPTIVE" username="bee" useOpenSSHConfig="true" />
-    </configs>
-  </component>
-</project>
