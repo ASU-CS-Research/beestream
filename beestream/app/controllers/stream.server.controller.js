@@ -103,13 +103,13 @@ module.exports = function(io, socket) {
                     || value === "AppMAIS6RB" || value === "AppMAIS16L" || value === "AppMAIS3L"
                     || value === "AppMAIS3R" || value === "AppMAIS2RB" || value === "AppMAIS1L" ||
                     value === "AppMAIS11R");
-                console.log(`${value}: ${inRemovedHives}`);
+                // console.log(`${value}: ${inRemovedHives}`);
                 return inRemovedHives;
         });
         hiveList = hives;
 	hiveList.sort();
-	console.log(`hives: ${hives}`);
-	console.log(`hiveList: ${hiveList}`);
+	// console.log(`hives: ${hives}`);
+	// console.log(`hiveList: ${hiveList}`);
         socket.emit('streamHiveList', {hiveNames: hiveList});
       }
     });
@@ -168,9 +168,16 @@ module.exports = function(io, socket) {
 
           var today = getDate();
           var url = `/video/${message.hive}@${today}@${mostRecent}`;
-          console.log(url);
-          var requestPath = `${config.videoPath}/${message.hive}/${today}/video/${message.hive}@${today}@${mostRecent}.h264`;
-          console.log(requestPath);
+          // console.log(url);
+          var requestPath = `${config.videoPath}/${message.hive}/${today}/video/${message.hive}@${today}@${mostRecent}`;
+          var h264Path = `${requestPath}.h264`;
+          var mp4Path = `${requestPath}.mp4`;
+          if (fs.existsSync(h264Path)) {
+              requestPath = h264Path;
+          } else if (fs.existsSync(mp4Path)) {
+              requestPath = mp4Path;
+          }
+          // console.log(requestPath);
           //If it's already converted, we don't need to convert it.
           if(fs.existsSync(`./video/${message.hive}@${today}@${mostRecent}`)) {
             socket.emit('streamReady', {
@@ -196,7 +203,7 @@ module.exports = function(io, socket) {
                     socket.emit('novideo', 'Something went wrong when serving the video.  Wait for a second or refresh the page!');
                   }
                   else {
-		            console.log(`Serving ${requestPath} at ${url}.`);
+		            // console.log(`Serving ${requestPath} at ${url}.`);
                     socket.emit('streamReady', {
                       url: `/video/${message.hive}@${today}@${mostRecent}`
                     });
