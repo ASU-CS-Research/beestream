@@ -56,13 +56,13 @@ export class StreamComponent {
       this.videoLoading = true;
     });
     this._videoService.on('streamReady', (data) => {
-      console.log(`${this.videoUrl} ${data.url}`)
+      console.log(`videoUrl, data.url: ${this.videoUrl} ${data.url}`)
       if (this.videoUrl == data.url) {
         this.videoLoading = false;
       }
       this.checkUrl = data.url;
       this.videoUrl = this.checkUrl
-      console.log(`${this.checkUrl}`)
+      console.log(`checkUrl: ${this.checkUrl}`)
       this.error = null;
     });
     this._videoService.on('novideo', (data) => {
