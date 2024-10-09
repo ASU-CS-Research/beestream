@@ -138,7 +138,7 @@ export class StreamComponent {
   * angular standards.
   */
   private showTitle() {
-    // console.log(`${this.videoUrl} is for the Video URLs ${this.error} for error ${this.hive} for hives ${this.date} and time is ${this.time}`)
+    console.log(`${this.videoUrl} is for the Video URLs ${this.error} for error ${this.hive} for hives ${this.date} and time is ${this.time}`)
     return this.videoUrl && !this.error &&
             this.hive && this.date && this.time;
   }
@@ -149,8 +149,8 @@ export class StreamComponent {
   * angular standards.
   */
   private showVideo() {
-    console.log(`${!this.error} for errors and ${this.videoUrl} for the video`)
-    console.log(`Error: ${this.error}`)
+    // console.log(`${this.error} for errors and ${this.videoUrl} for the video`)
+    // console.log(`Error: ${this.error}`)
     return this.videoUrl && !this.error;
   }
 
