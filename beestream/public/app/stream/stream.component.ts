@@ -138,6 +138,7 @@ export class StreamComponent {
   * angular standards.
   */
   private showTitle() {
+    [this.hive, this.date, this.time] = this.getVideoInfo(this.videoUrl);
     console.log(`${this.videoUrl} is for the Video URLs ${this.error} for error ${this.hive} for hives ${this.date} and time is ${this.time}`)
     return this.videoUrl && !this.error &&
             this.hive && this.date && this.time;
