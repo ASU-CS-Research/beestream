@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const Comment = mongoose.model('Comment');
 const config = require('../../config/config');
+const fs = require('fs');
+const { getFilepath } = require('./analysis.server.controller');
+
 
 /*This file handles all socket.io configurations for the comment component.
 * This includes creating the listeners and sending the appropriate emit
@@ -46,9 +49,8 @@ module.exports = function(io, socket) {
     var hour = (date.getHours() < 10) ? `0${date.getHours()}` : `${date.getHours()}`;
     var minute = (date.getMinutes() < 10) ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
     var second = (date.getSeconds() < 10) ? `0${date.getSeconds()}` : `${date.getSeconds()}`;
-    var filepath = `${config.videoPath}/${commentData.hive}/` +
-                   `${date.getFullYear()}-${month}-${day}` +
-                   `/video/${commentData.hive}@${date.getFullYear()}-${month}-${day}@${hour}-${minute}-${second}.h264`;
+    var filepath = getFilepath(message.hive, date)
+
     var newComment = new Comment({
       'Username': commentData.username,
       'Comment': commentData.comment,

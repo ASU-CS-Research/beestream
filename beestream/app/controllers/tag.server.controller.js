@@ -53,7 +53,7 @@ module.exports = function(io, socket) {
         validTags.push(singleTag.Tag);
       }
       if (err) {
-        console.log(`Error retreiving avaliable tags: ${err}`);
+        console.log(`Error retrieving available tags: ${err}`);
       }
       else if (hive != null && date != null
           && tag != null && validTags.includes(tag)) {
@@ -137,7 +137,7 @@ module.exports = function(io, socket) {
         validTags.push(singleTag.Tag);
       }
       if (err) {
-        console.log(`Error retreiving avaliable tags: ${err}`);
+        console.log(`Error retrieving available tags: ${err}`);
       }
       else if (hive != null && date != null
           && tag != null && validTags.includes(tag)) {
