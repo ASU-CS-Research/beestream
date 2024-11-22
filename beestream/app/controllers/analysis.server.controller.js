@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const config = require('../../config/config.js');
 const VideoFile = mongoose.model('VideoFile');
 const BeetLocation = config.beetPath;
-const { getFilepath } = require('./analysis.server.controller');
 
 /*This export handles all socket.io configurations for the analysis component.
 * This includes creating the listeners and sending the appropriate emit
