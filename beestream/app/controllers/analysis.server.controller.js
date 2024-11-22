@@ -1,6 +1,6 @@
 const fs = require('fs');
-const { exec } = require('child_process');
-const { join } = require('path');
+const {exec} = require('child_process');
+const {join} = require('path');
 const mongoose = require('mongoose');
 const config = require('../../config/config.js');
 const VideoFile = mongoose.model('VideoFile');
@@ -25,37 +25,59 @@ const BeetLocation = config.beetPath;
 *                       accompanied by an error message.
 *
 */
-module.exports = function(io, socket) {
+module.exports = function (io, socket) {
 
-  /*getAnalysis: a request for analysis of a video.  This should return
-  * a JSON object containing an arrivals count and a departures count.
-  */
-  socket.on('getAnalysis', (message) => {
-    VideoFile.findOne({HiveName: message.hive, UTCDate: new Date(message.datetime)},
-                  {_id: 0}).exec((err, result) => {
-      if (err) {
-        console.log(err);
-      }
-      else {
-        if (result && result.ArrivalsTriangle != null && result.DeparturesTriangle != null) {
-          sendResults(false,
-                      message.hive,
-                      message.datetime,
-                      result.ArrivalsTriangle,
-                      result.DeparturesTriangle,
-                      socket);
-        }
-        else {
-          socket.emit('videoAnalysisFailure', {
-            message: 'No Analysis Avaliable'
-          });
-        }
-      }
+    /*getAnalysis: a request for analysis of a video.  This should return
+    * a JSON object containing an arrivals count and a departures count.
+    */
+    socket.on('getAnalysis', (message) => {
+        VideoFile.findOne({HiveName: message.hive, UTCDate: new Date(message.datetime)},
+            {_id: 0}).exec((err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                if (result && result.ArrivalsTriangle != null && result.DeparturesTriangle != null) {
+                    sendResults(false,
+                        message.hive,
+                        message.datetime,
+                        result.ArrivalsTriangle,
+                        result.DeparturesTriangle,
+                        socket);
+                } else {
+                    socket.emit('videoAnalysisFailure', {
+                        message: 'No Analysis Avaliable'
+                    });
+                }
+            }
+        });
     });
-  });
+
+    /*getFilepath
+    * This function constructs the filepath for the video analysis from a given hive
+    * and datetime.  The filepath is config.videoPath/hive/day/video/time.h264.
+    *
+    * @params:
+    *   hive - the hive the video comes from
+    *   datetime - the datetime of the video.
+    */
+    function getFilepath(hive, datetime) {
+        var date = new Date(datetime);
+        var day = `${date.getFullYear()}` +
+            `-${date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)}` +
+            `-${date.getDate() > 9 ? date.getDate() : '0' + date.getDate()}`;
+        var time = `${date.getHours() > 9 ? date.getHours() : '0' + date.getHours()}` +
+            `-${date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes()}` +
+            `-${date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds()}`;
+        var filepath = `${config.videoPath}/${hive}/${day}/video/${time}.h264`;
+        if (!fs.existsSync(filepath)) {
+            filepath = `${config.videoPath}/${hive}/${day}/video/${time}.mp4`;
+        }
+        return filepath;
+    }
 }
 
 /************************************HELPER FUNCTIONS**************************/
+
 /*getBoundaryConfig
 * This funtion will return the entrance boundary config from the config file if
 * there is one for this hive and date, and will return null if not.
@@ -68,46 +90,24 @@ module.exports = function(io, socket) {
 *   datetime - the video's datatime.
 */
 function getBoundaryConfig(hive, datetime) {
-  var entrances = config.entranceBounds[`${hive}`];
-  var entranceConfig = null;
-  if (entrances != null) {
-    for (entrance of entrances) {
-      var startdate = new Date(entrance.start);
-      var enddate = new Date(entrance.end);
-      var date = new Date(datetime);
-      if (startdate < date
-          && (enddate >= date
-              || entrance.end == 'present')) {
-        entranceConfig = entrance.rectangle;
-        break;
-      }
+    var entrances = config.entranceBounds[`${hive}`];
+    var entranceConfig = null;
+    if (entrances != null) {
+        for (entrance of entrances) {
+            var startdate = new Date(entrance.start);
+            var enddate = new Date(entrance.end);
+            var date = new Date(datetime);
+            if (startdate < date
+                && (enddate >= date
+                    || entrance.end == 'present')) {
+                entranceConfig = entrance.rectangle;
+                break;
+            }
+        }
     }
-  }
-  return entranceConfig;
+    return entranceConfig;
 }
 
-/*getFilepath
-* This function constructs the filepath for the video analysis from a given hive
-* and datetime.  The filepath is config.videoPath/hive/day/video/time.h264.
-*
-* @params:
-*   hive - the hive the video comes from
-*   datetime - the datetime of the video.
-*/
-function getFilepath(hive, datetime) {
-  var date = new Date(datetime);
-  var day = `${date.getFullYear()}` +
-            `-${date.getMonth() + 1 > 9 ? date.getMonth() + 1 : '0' + (date.getMonth() + 1)}` +
-            `-${date.getDate() > 9 ? date.getDate() : '0' + date.getDate()}`;
-  var time = `${date.getHours() > 9 ? date.getHours() : '0' + date.getHours()}` +
-             `-${date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes()}` +
-             `-${date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds()}`;
-  var filepath = `${config.videoPath}/${hive}/${day}/video/${time}.h264`;
-  if (!fs.existsSync(filepath)) {
-    filepath = `${config.videoPath}/${hive}/${day}/video/${time}.mp4`;
-  }
-  return filepath;
-}
 
 /*sendResults
 * This function wraps the sending of a response to the client as well as writing
@@ -123,23 +123,23 @@ function getFilepath(hive, datetime) {
 *   socket: socket.io socket - the socket to communicate through.
 */
 function sendResults(store, hive, datetime, arrivals, departures, socket) {
-  socket.emit('videoAnalysisSuccess', {
-    datetime: new Date(datetime),
-    hive: hive,
-    arrivals: arrivals,
-    departures: departures
-  });
-  if (store) {
-    var newAnalysis = new Analysis({
-      hive: hive,
-      date: new Date(datetime),
-      departures: departures,
-      arrivals: arrivals
+    socket.emit('videoAnalysisSuccess', {
+        datetime: new Date(datetime),
+        hive: hive,
+        arrivals: arrivals,
+        departures: departures
     });
-    newAnalysis.save((err) => {
-      if (err) {
-        console.log(`Error inserting analysis into database: ${err}.`);
-      }
-    })
-  }
+    if (store) {
+        var newAnalysis = new Analysis({
+            hive: hive,
+            date: new Date(datetime),
+            departures: departures,
+            arrivals: arrivals
+        });
+        newAnalysis.save((err) => {
+            if (err) {
+                console.log(`Error inserting analysis into database: ${err}.`);
+            }
+        })
+    }
 }
