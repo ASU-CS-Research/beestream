@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Tag = mongoose.model('Tag');
 const AvailableTag = mongoose.model('AvailableTag');
 const config = require('../../config/config.js');
+const { getFilepath } = require('./analysis.server.controller');
 
 /*This file handles all socket.io configurations for the tag component.
 * This includes creating the listeners and sending the appropriate emit
@@ -44,9 +45,7 @@ module.exports = function(io, socket) {
     var hour = (date.getHours() < 10) ? `0${date.getHours()}` : `${date.getHours()}`;
     var minute = (date.getMinutes() < 10) ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
     var second = (date.getSeconds() < 10) ? `0${date.getSeconds()}` : `${date.getSeconds()}`;
-    var filepath = `${config.videoPath}/${hive}/` +
-                   `${date.getFullYear()}-${month}-${day}` +
-                   `/video/${hive}@${date.getFullYear()}-${month}-${day}@${hour}-${minute}-${second}.h264`;
+    var filepath = getFilepath(message.hive, date)
     AvailableTag.find({}, {_id: 0}, (err, tags) => {
       var validTags = [];
       for (var singleTag of tags) {
@@ -128,9 +127,7 @@ module.exports = function(io, socket) {
     var hour = (date.getHours() < 10) ? `0${date.getHours()}` : `${date.getHours()}`;
     var minute = (date.getMinutes() < 10) ? `0${date.getMinutes()}` : `${date.getMinutes()}`;
     var second = (date.getSeconds() < 10) ? `0${date.getSeconds()}` : `${date.getSeconds()}`;
-    var filepath = `${config.videoPath}/${hive}/` +
-                   `${date.getFullYear()}-${month}-${day}` +
-                   `/video/${hour}-${minute}-${second}.h264`;
+    var filepath = getFilepath(message.hive, date)
     AvailableTag.find({}, {_id: 0}, (err, tags) => {
       var validTags = [];
       for (var singleTag of tags) {

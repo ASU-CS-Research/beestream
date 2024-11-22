@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const config = require('../../config/config.js');
 const VideoFile = mongoose.model('VideoFile');
 const BeetLocation = config.beetPath;
+const { getFilepath } = require('./analysis.server.controller');
 
 /*This export handles all socket.io configurations for the analysis component.
 * This includes creating the listeners and sending the appropriate emit
@@ -102,7 +103,7 @@ function getFilepath(hive, datetime) {
   var time = `${date.getHours() > 9 ? date.getHours() : '0' + date.getHours()}` +
              `-${date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes()}` +
              `-${date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds()}`;
-  var filepath = `${config.videoPath}/${hive}/${day}/video/${time}.h264`
+  var filepath = getFilepath(hive, date);
   if (!fs.existsSync(filepath)) {
     filepath = `${config.videoPath}/${hive}/${day}/video/${time}.mp4`;
   }

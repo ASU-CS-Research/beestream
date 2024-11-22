@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const VideoFile = mongoose.model('VideoFile');
 const Hives = mongoose.model('Hives');
 const ffmpegPath = config.ffmpegPath;
+const { getFilepath } = require('./analysis.server.controller');
 
 /*getDate
 * Helper function to get the current date in the correct format: YYYY-MM-DD
@@ -157,7 +158,7 @@ module.exports = function(io, socket) {
           let mostRecent = videos[0];
           mostRecent = mostRecent.split('/');
           mostRecent = mostRecent[mostRecent.length - 1];
-          mostRecent = mostRecent.replace('.h264', '');
+          mostRecent = mostRecent.replace('.h264', '').replace('.mp4', '');
           mostRecent = mostRecent.split('@')[2];
           //console.log(mostRecent);
 
@@ -169,14 +170,15 @@ module.exports = function(io, socket) {
           var today = getDate();
           var url = `/video/${message.hive}@${today}@${mostRecent}`;
           // console.log(url);
-          var requestPath = `${config.videoPath}/${message.hive}/${today}/video/${message.hive}@${today}@${mostRecent}`;
-          var h264Path = `${requestPath}.h264`;
-          var mp4Path = `${requestPath}.mp4`;
-          if (fs.existsSync(h264Path)) {
-              requestPath = h264Path;
-          } else if (fs.existsSync(mp4Path)) {
-              requestPath = mp4Path;
-          }
+          // var requestPath = `${config.videoPath}/${message.hive}/${today}/video/${message.hive}@${today}@${mostRecent}`;
+          // var h264Path = `${requestPath}.h264`;
+          // var mp4Path = `${requestPath}.mp4`;
+          // if (fs.existsSync(h264Path)) {
+          //     requestPath = h264Path;
+          // } else if (fs.existsSync(mp4Path)) {
+          //     requestPath = mp4Path;
+          // }
+          var requestPath = getFilepath(message.hive, message.datetime);
           console.log(requestPath);
           //If it's already converted, we don't need to convert it.
           if(fs.existsSync(`./video/${message.hive}@${today}@${mostRecent}`)) {

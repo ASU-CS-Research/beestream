@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const VideoFile = mongoose.model('VideoFile');
 const Hives = mongoose.model('Hives');
 const ffmpegPath = config.ffmpegPath;
+const { getFilepath } = require('./analysis.server.controller');
 
 
 /*This file handles all socket.io configurations for the article service.
@@ -141,7 +142,7 @@ module.exports = function(io, socket) {
         for (video of videos) {
           var filename = video.FilePath.split('@');
           filename = filename[filename.length - 1];
-          filename = filename.replace('.h264', '');
+          filename = filename.replace('.h264', '').replace('.mp4', '');
           if (!files.includes(filename)) {
             files.push(filename);
           }
@@ -181,8 +182,7 @@ module.exports = function(io, socket) {
   */
   socket.on('getVideo', (message) => {
     //Build the path of the requested video
-    var requestPath =
-        `${config.videoPath}/${message.hive}/${message.date}/video/${message.hive}@${message.date}@${message.time}.h264`;
+    var requestPath = getFilepath(message.hive, message.datetime);
     console.log(`Serving ${requestPath}`);
     //If the user has selected a hive, date, and time and the video exists, serve it.
     if ((message.hive != null) && (message.date != null) &&
