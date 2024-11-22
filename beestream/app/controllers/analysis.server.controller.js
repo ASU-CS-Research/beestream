@@ -102,7 +102,7 @@ function getFilepath(hive, datetime) {
   var time = `${date.getHours() > 9 ? date.getHours() : '0' + date.getHours()}` +
              `-${date.getMinutes() > 9 ? date.getMinutes() : '0' + date.getMinutes()}` +
              `-${date.getSeconds() > 9 ? date.getSeconds() : '0' + date.getSeconds()}`;
-  var filepath = getFilepath(hive, date);
+  var filepath = `${config.videoPath}/${hive}/${day}/video/${time}.h264`;
   if (!fs.existsSync(filepath)) {
     filepath = `${config.videoPath}/${hive}/${day}/video/${time}.mp4`;
   }
