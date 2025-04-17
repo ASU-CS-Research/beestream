@@ -97,12 +97,12 @@ module.exports = function(io, socket) {
 	hives = hives.filter(function(value){
 
                 var inRemovedHives = !(value === "All_Hives" || value === "No_Hives" || value === "AppMAIS10L"
-                    || value === "AppMAIS10R" || value === "AppMAIS2R"
+                    || value === "AppMAIS10R" || value === "AppMAIS2RC"
                     || value === "AppMAIS4L" || value === "AppMAIS4R" || value === "AppMAIS5L"
-                    || value === "AppMAIS8L" || value === "AppMAIS9L"
-                    || value === "AppMAIS6RB" || value === "AppMAIS16L" || value === "AppMAIS3L"
-                    || value === "AppMAIS3R" || value === "AppMAIS2RB" || value === "AppMAIS1L" ||
-                    value === "AppMAIS11R");
+                    || value === "AppMAIS8L" || value === "AppMAIS9L" || value === "AppMAIS6RB"
+                    || value === "AppMAIS6RC" || value === "AppMAIS16L" || value === "AppMAIS3L"
+                    || value === "AppMAIS3R" || value === "AppMAIS2RB" || value === "AppMAIS1LB" ||
+                    value === "AppMAIS11RB");
                 // console.log(`${value}: ${inRemovedHives}`);
                 return inRemovedHives;
         });
